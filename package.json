@@ -1,0 +1,51 @@
+{
+  "name": "bestseller-frontend-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "npm run format:root && npm run format:src",
+    "format:root": "prettier-eslint --write './*.{js,html,json}' ",
+    "format:src": "prettier-eslint --write './src/{,**}/*.{js,html,json}' "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trkaplan/bestseller-frontend-task.git"
+  },
+  "author": "Tuncay Kaplan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trkaplan/bestseller-frontend-task/issues"
+  },
+  "homepage": "https://github.com/trkaplan/bestseller-frontend-task#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-react-app": "^3.0.6",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "html-webpack-plugin": "3.2.0",
+    "prettier": "^1.16.1",
+    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
+}
