@@ -23,25 +23,21 @@ class App extends Component {
   state = {
     isGiftCardsVisible: false,
     giftCards: [],
-    errorMessage: null
+    errorMessage: null,
+    errorTarget: null
   };
 
   addGiftCard = (list, item) => {
     return list.concat(item);
   };
 
-  onCurrentCardNumberChange = event => {
-    this.setState({ currentCardNumber: event.target.value });
-  };
-
-  onControlCodeChange = event => {
-    this.setState({ currentControlCode: event.target.value });
-  };
-
   updateGiftCard = () => {
     const { currentCardNumber, currentControlCode, giftCards } = this.state;
     if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
-      this.setState({ errorMessage: 'This gift card is already applied.' });
+      this.setState({
+        errorMessage: 'This gift card is already applied.',
+        errorTarget: 'CardNumber'
+      });
       return;
     }
     const newGiftCard = {
@@ -61,8 +57,39 @@ class App extends Component {
     this.setState({ isGiftCardsVisible: !isGiftCardsVisible });
   };
 
+  isANumber = str => {
+    return !/\D/.test(str);
+  };
+
+  onCardNumberChange = e => {
+    let errorMessage;
+    let target;
+
+    if (!this.isANumber(e.target.value)) {
+      errorMessage = 'Gift Card number must contain only numbers (0-9).';
+      target = 'CardNumber';
+    }
+    this.setState({ currentCardNumber: e.target.value, errorMessage, errorTarget: target });
+  };
+
+  onCardControlCodeChange = e => {
+    let errorMessage;
+    let target;
+    if (!this.isANumber(e.target.value)) {
+      errorMessage = 'Gift Card control code must contain only numbers (0-9).';
+      target = 'CardControl';
+    }
+    this.setState({ currentControlCode: e.target.value, errorMessage, errorTarget: target });
+  };
+
   render() {
-    const { isGiftCardsVisible, errorMessage, currentCardNumber, currentControlCode } = this.state;
+    const {
+      isGiftCardsVisible,
+      errorMessage,
+      errorTarget,
+      currentCardNumber,
+      currentControlCode
+    } = this.state;
     return (
       <Fragment>
         <GlobalStyle />
@@ -78,17 +105,16 @@ class App extends Component {
                   <TextfieldCardNumber
                     value={currentCardNumber}
                     placeholder="Gift Card Number"
-                    onChange={e =>
-                      this.setState({ currentCardNumber: e.target.value, errorMessage: null })
-                    }
-                    highlighted={!!errorMessage}
+                    onChange={this.onCardNumberChange}
+                    highlighted={errorTarget === 'CardNumber'}
                     name="currentCardNumber"
                     errorText={errorMessage}
                   />
                   <TextfieldControlCode
                     value={currentControlCode}
                     placeholder="Control Code"
-                    onChange={e => this.setState({ currentControlCode: e.target.value })}
+                    onChange={this.onCardControlCodeChange}
+                    highlighted={errorTarget === 'ControlCode'}
                     name="currentControlCode"
                   />
                 </NewGiftCardWrapper>
