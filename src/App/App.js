@@ -1,12 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import theme from '../theme';
-import { StyledCard, PageWrapper } from './styled';
-import { Checkbox } from '../components/UIKit';
+import {
+  StyledCard,
+  PageWrapper,
+  GiftCards,
+  NewGiftCardWrapper,
+  TextfieldCardNumber,
+  TextfieldControlCode
+} from './styled';
+import { Checkbox, Button } from '../components/UIKit';
 
 const GlobalStyle = createGlobalStyle`
 body {
-  font-size:${theme.fontSize.base};
+  font-size:${theme.fontSize.xs};
   font-family:${theme.fontFamily.default};
   background-color:${theme.color.grayDark};
 }
@@ -14,7 +21,39 @@ body {
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
   state = {
-    isGiftCardsVisible: false
+    isGiftCardsVisible: false,
+    giftCards: [],
+    errorMessage: null
+  };
+
+  addGiftCard = (list, item) => {
+    return list.concat(item);
+  };
+
+  onCurrentCardNumberChange = event => {
+    this.setState({ currentCardNumber: event.target.value });
+  };
+
+  onControlCodeChange = event => {
+    this.setState({ currentControlCode: event.target.value });
+  };
+
+  updateGiftCard = () => {
+    const { currentCardNumber, currentControlCode, giftCards } = this.state;
+    if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
+      this.setState({ errorMessage: 'This gift card is already applied.' });
+      return;
+    }
+    const newGiftCard = {
+      cardNumber: currentCardNumber,
+      controlCode: currentControlCode
+    };
+    const updatedGiftCards = this.addGiftCard(giftCards, newGiftCard);
+    this.setState({
+      giftCards: updatedGiftCards,
+      currentCardNumber: '',
+      currentControlCode: ''
+    });
   };
 
   toggleGiftCards = () => {
@@ -23,7 +62,7 @@ class App extends Component {
   };
 
   render() {
-    const { isGiftCardsVisible } = this.state;
+    const { isGiftCardsVisible, errorMessage, currentCardNumber, currentControlCode } = this.state;
     return (
       <Fragment>
         <GlobalStyle />
@@ -33,7 +72,30 @@ class App extends Component {
               Do you have a gift card?
             </Checkbox>
             {isGiftCardsVisible && (
-              <span>Please enter the 19-digit number and code from your gift card below.</span>
+              <GiftCards>
+                <p>Please enter the 19-digit number and code from your gift card below.</p>
+                <NewGiftCardWrapper>
+                  <TextfieldCardNumber
+                    value={currentCardNumber}
+                    placeholder="Gift Card Number"
+                    onChange={e =>
+                      this.setState({ currentCardNumber: e.target.value, errorMessage: null })
+                    }
+                    highlighted={!!errorMessage}
+                    name="currentCardNumber"
+                    errorText={errorMessage}
+                  />
+                  <TextfieldControlCode
+                    value={currentControlCode}
+                    placeholder="Control Code"
+                    onChange={e => this.setState({ currentControlCode: e.target.value })}
+                    name="currentControlCode"
+                  />
+                </NewGiftCardWrapper>
+                <Button onClick={this.updateGiftCard} size="medium">
+                  APPLY
+                </Button>
+              </GiftCards>
             )}
           </StyledCard>
         </PageWrapper>

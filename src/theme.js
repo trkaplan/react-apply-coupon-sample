@@ -5,6 +5,8 @@ const theme = {
     gray: '#666666', // description text
     grayLight: '#F2F2F2', // box fill
     grayDark: '#E5E5E5', // page bg
+    grayBorder: '#CCC', // input border
+    error: '#FF6D6D',
     white: '#FFF'
   },
   fontFamily: {

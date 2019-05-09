@@ -13,11 +13,11 @@ const Icon = styled.svg`
 `;
 const StyledCheckbox = styled.div`
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   background: ${props => (props.checked ? theme.color.green : theme.color.white)};
   border: 1px solid ${theme.color.grayDark};
-  margin-right: 6px;
+  margin-right: 3px;
   border-radius: 3px;
   transition: all 150ms;
   ${Icon} {
@@ -58,6 +58,7 @@ class Checkbox extends React.Component {
 
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
-  setChecked: PropTypes.func.isRequired
+  setChecked: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 };
 export default Checkbox;
