@@ -104,6 +104,7 @@ class App extends Component {
                 <NewGiftCardWrapper>
                   <TextfieldCardNumber
                     value={currentCardNumber}
+                    maxLength={19}
                     placeholder="Gift Card Number"
                     onChange={this.onCardNumberChange}
                     highlighted={errorTarget === 'CardNumber'}
@@ -112,6 +113,7 @@ class App extends Component {
                   />
                   <TextfieldControlCode
                     value={currentControlCode}
+                    maxLength={3}
                     placeholder="Control Code"
                     onChange={this.onCardControlCodeChange}
                     highlighted={errorTarget === 'ControlCode'}

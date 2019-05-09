@@ -20,7 +20,16 @@ class Textfield extends Component {
   };
 
   render() {
-    const { name, value, onChange, highlighted, className, placeholder, errorText } = this.props;
+    const {
+      name,
+      value,
+      onChange,
+      highlighted,
+      className,
+      placeholder,
+      errorText,
+      maxLength
+    } = this.props;
     return (
       <div>
         <StyledInput
@@ -29,8 +38,9 @@ class Textfield extends Component {
           className={className}
           name={name}
           type="text"
-          highlighted={highlighted}
           onChange={event => this.onChangeHandler(event, onChange)}
+          maxLength={maxLength}
+          highlighted={highlighted}
         />
         {errorText && <ErrorText>{errorText}</ErrorText>}
       </div>
@@ -44,7 +54,8 @@ Textfield.defaultProps = {
   onChange: () => {},
   name: null,
   highlighted: false,
-  errorText: null
+  errorText: null,
+  maxLength: null
 };
 Textfield.propTypes = {
   className: PropTypes.string,
@@ -53,6 +64,7 @@ Textfield.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   highlighted: PropTypes.bool,
-  errorText: PropTypes.string
+  errorText: PropTypes.string,
+  maxLength: PropTypes.number
 };
 export default Textfield;
