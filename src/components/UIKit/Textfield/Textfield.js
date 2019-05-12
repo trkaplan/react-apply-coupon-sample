@@ -7,6 +7,9 @@ const StyledInput = styled.input`
   text-indent: 10px;
   border: 1px solid ${theme.color.grayBorder};
   ${({ highlighted }) => highlighted && `border: 2px solid ${theme.color.error};`};
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ErrorText = styled.div`
@@ -15,15 +18,25 @@ const ErrorText = styled.div`
 `;
 
 class Textfield extends Component {
+  onBlurHandler = (e, onBlur) => {
+    onBlur && onBlur(e);
+  };
+
   onChangeHandler = (e, onChange) => {
     onChange && onChange(e);
+  };
+
+  onKeyPressHandler = (e, onKeyPress) => {
+    onKeyPress && onKeyPress(e);
   };
 
   render() {
     const {
       name,
       value,
+      onBlur,
       onChange,
+      onKeyPress,
       highlighted,
       className,
       placeholder,
@@ -38,7 +51,9 @@ class Textfield extends Component {
           className={className}
           name={name}
           type="text"
+          onBlur={event => this.onBlurHandler(event, onBlur)}
           onChange={event => this.onChangeHandler(event, onChange)}
+          onKeyPress={event => this.onKeyPressHandler(event, onKeyPress)}
           maxLength={maxLength}
           highlighted={highlighted}
         />
@@ -51,7 +66,9 @@ Textfield.defaultProps = {
   className: null,
   placeholder: null,
   value: '',
+  onBlur: () => {},
   onChange: () => {},
+  onKeyPress: () => {},
   name: null,
   highlighted: false,
   errorText: null,
@@ -61,7 +78,9 @@ Textfield.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
   name: PropTypes.string,
   highlighted: PropTypes.bool,
   errorText: PropTypes.string,

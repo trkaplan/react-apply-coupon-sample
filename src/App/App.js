@@ -34,20 +34,6 @@ class App extends Component {
 
   updateGiftCard = () => {
     const { currentCardNumber, currentControlCode, giftCards } = this.state;
-    if (typeof currentCardNumber == 'undefined' || currentCardNumber.length !== 19) {
-      this.setState({
-        errorMessage: 'Gift Card number must be 19 digits',
-        errorTarget: 'CardNumber'
-      });
-      return;
-    }
-    if (typeof currentControlCode == 'undefined' || currentControlCode.length !== 3) {
-      this.setState({
-        errorMessage: 'Gift Card Control Code must be 3 digits',
-        errorTarget: 'ControlCode'
-      });
-      return;
-    }
     if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
       this.setState({
         errorMessage: 'This gift card is already applied.',
@@ -97,6 +83,32 @@ class App extends Component {
     this.setState({ currentCardNumber: e.target.value, errorMessage, errorTarget: target });
   };
 
+  onGiftCardInputKeyPress = e => {
+    if (e.charCode === 13) {
+      this.updateGiftCard();
+    }
+  };
+
+  onCardControlCodeBlur = e => {
+    const { currentControlCode } = this.state;
+    if (typeof currentControlCode == 'undefined' || currentControlCode.length !== 3) {
+      this.setState({
+        errorMessage: 'Gift Card Control Code must be 3 digits',
+        errorTarget: 'ControlCode'
+      });
+    }
+  };
+
+  onCardNumberBlur = e => {
+    const { currentCardNumber } = this.state;
+    if (typeof currentCardNumber == 'undefined' || currentCardNumber.length !== 19) {
+      this.setState({
+        errorMessage: 'Gift Card number must be 19 digits',
+        errorTarget: 'CardNumber'
+      });
+    }
+  };
+
   onCardControlCodeChange = e => {
     let errorMessage;
     let target;
@@ -132,6 +144,8 @@ class App extends Component {
                     maxLength={19}
                     placeholder="Gift Card Number"
                     onChange={this.onCardNumberChange}
+                    onBlur={this.onCardNumberBlur}
+                    onKeyPress={this.onGiftCardInputKeyPress}
                     highlighted={errorTarget === 'CardNumber'}
                     name="currentCardNumber"
                     errorText={errorMessage}
@@ -141,6 +155,8 @@ class App extends Component {
                     maxLength={3}
                     placeholder="Control Code"
                     onChange={this.onCardControlCodeChange}
+                    onBlur={this.onCardControlCodeBlur}
+                    onKeyPress={this.onGiftCardInputKeyPress}
                     highlighted={errorTarget === 'ControlCode'}
                     name="currentControlCode"
                   />
