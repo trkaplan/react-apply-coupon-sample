@@ -41,6 +41,13 @@ class App extends Component {
       });
       return;
     }
+    if (typeof currentControlCode == 'undefined' || currentControlCode.length !== 3) {
+      this.setState({
+        errorMessage: 'Gift Card Control Code must be 3 digits',
+        errorTarget: 'ControlCode'
+      });
+      return;
+    }
     if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
       this.setState({
         errorMessage: 'This gift card is already applied.',
@@ -95,7 +102,7 @@ class App extends Component {
     let target;
     if (!this.isANumber(e.target.value)) {
       errorMessage = 'Gift Card control code must contain only numbers (0-9).';
-      target = 'CardControl';
+      target = 'ControlCode';
     }
     this.setState({ currentControlCode: e.target.value, errorMessage, errorTarget: target });
   };
