@@ -1,0 +1,19 @@
+{
+  "giftCards": [
+    {
+      "giftCode": "1234567890123456789",
+      "controlCode": "123",
+      "giftAmount": 30
+    },
+    {
+      "giftCode": "1234567890123456790",
+      "controlCode": "124",
+      "giftAmount": 10
+    },
+    {
+      "giftCode": "1234567890123456791",
+      "controlCode": "125",
+      "giftAmount": 20
+    }
+  ]
+}

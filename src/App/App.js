@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import API_GIFT_CARD_VALIDATOR from '../constants';
 import theme from '../theme';
 import {
   StyledCard,
@@ -40,16 +41,26 @@ class App extends Component {
       });
       return;
     }
-    const newGiftCard = {
-      cardNumber: currentCardNumber,
-      controlCode: currentControlCode
-    };
-    const updatedGiftCards = this.addGiftCard(giftCards, newGiftCard);
-    this.setState({
-      giftCards: updatedGiftCards,
-      currentCardNumber: '',
-      currentControlCode: ''
-    });
+    fetch(
+      `${API_GIFT_CARD_VALIDATOR}?giftCode=${currentCardNumber}&controlCode=${currentControlCode}`
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const giftCardObject = data[0];
+          const updatedGiftCards = this.addGiftCard(giftCards, giftCardObject);
+          this.setState({
+            giftCards: updatedGiftCards,
+            currentCardNumber: '',
+            currentControlCode: ''
+          });
+        } else {
+          this.setState({
+            errorMessage: 'Invalid Gift Card Code or Control Code',
+            errorTarget: ''
+          });
+        }
+      });
   };
 
   toggleGiftCards = () => {
