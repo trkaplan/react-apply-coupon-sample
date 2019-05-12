@@ -34,6 +34,13 @@ class App extends Component {
 
   updateGiftCard = () => {
     const { currentCardNumber, currentControlCode, giftCards } = this.state;
+    if (typeof currentCardNumber == 'undefined' || currentCardNumber.length !== 19) {
+      this.setState({
+        errorMessage: 'Gift Card number must be 19 digits',
+        errorTarget: 'CardNumber'
+      });
+      return;
+    }
     if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
       this.setState({
         errorMessage: 'This gift card is already applied.',
