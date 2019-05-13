@@ -95,7 +95,10 @@ class App extends Component {
 
   onCardControlCodeBlur = e => {
     const { currentControlCode } = this.state;
-    if (typeof currentControlCode == 'undefined' || currentControlCode.length !== 3) {
+    if (
+      typeof currentControlCode == 'undefined' ||
+      (currentControlCode.length > 0 && currentControlCode.length !== 3)
+    ) {
       this.setState({
         errorMessage: 'Gift Card Control Code must be 3 digits',
         errorTarget: 'ControlCode'
@@ -105,7 +108,9 @@ class App extends Component {
 
   onCardNumberBlur = e => {
     const { currentCardNumber } = this.state;
-    if (typeof currentCardNumber == 'undefined' || currentCardNumber.length !== 19) {
+    if (typeof currentCardNumber == 'undefined' || 
+    (currentCardNumber.length >0 && currentCardNumber.length !== 19)
+    ) {
       this.setState({
         errorMessage: 'Gift Card number must be 19 digits',
         errorTarget: 'CardNumber'
