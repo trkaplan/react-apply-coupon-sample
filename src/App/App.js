@@ -17,6 +17,7 @@ import {
 } from './styled';
 import { Checkbox, Button } from '../components/UIKit';
 
+const CARD_NUMBER_PLACEHOLDER = '**** **** **** **** ';
 const GlobalStyle = createGlobalStyle`
 body {
   font-size:${theme.fontSize.xs};
@@ -160,7 +161,7 @@ class App extends Component {
                           <div>
                             <span>Gift Card</span>
                             <GiftCardItemCC>
-                              **** **** **** ****
+                              {CARD_NUMBER_PLACEHOLDER}
                               {item.controlCode}
                             </GiftCardItemCC>
                           </div>
