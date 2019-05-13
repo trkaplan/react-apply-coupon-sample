@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Card, Textfield } from '../components/UIKit';
+import theme from '../theme';
 
 export const StyledCard = styled(Card)`
   width: 434px;
@@ -12,6 +13,23 @@ export const GiftCards = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 2px;
+`;
+export const GiftCardItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5px;
+  background-color: ${theme.color.grayLight};
+  padding: ${theme.padding.p10};
+`;
+
+export const GiftCardItemCC = styled.div`
+  font-weight: light;
+  margin-top: 5px;
+`;
+export const GiftCardItemAmount = styled.div`
+  font-weight: bold;
+  align-self: center;
 `;
 export const NewGiftCardWrapper = styled.div`
   display: flex;

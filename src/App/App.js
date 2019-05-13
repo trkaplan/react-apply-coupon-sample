@@ -2,9 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import API_GIFT_CARD_VALIDATOR from '../constants';
 import theme from '../theme';
+import formatCurrency from '../utils';
 import {
   StyledCard,
   PageWrapper,
+  GiftCardItem,
+  GiftCardItemAmount,
+  GiftCardItemCC,
   GiftCards,
   NewGiftCardWrapper,
   TextfieldCardNumber,
@@ -125,7 +129,8 @@ class App extends Component {
       errorMessage,
       errorTarget,
       currentCardNumber,
-      currentControlCode
+      currentControlCode,
+      giftCards
     } = this.state;
     return (
       <Fragment>
@@ -137,6 +142,25 @@ class App extends Component {
             </Checkbox>
             {isGiftCardsVisible && (
               <GiftCards>
+                <div>
+                  {giftCards &&
+                    giftCards.map(item => {
+                      return (
+                        <GiftCardItem key={item.giftCode}>
+                          <div>
+                            <span>Gift Card</span>
+                            <GiftCardItemCC>
+                              **** **** **** ****
+                              {item.controlCode}
+                            </GiftCardItemCC>
+                          </div>
+                          <GiftCardItemAmount>
+                            -{formatCurrency(item.giftAmount)}
+                          </GiftCardItemAmount>
+                        </GiftCardItem>
+                      );
+                    })}
+                </div>
                 <p>Please enter the 19-digit number and code from your gift card below.</p>
                 <NewGiftCardWrapper>
                   <TextfieldCardNumber
