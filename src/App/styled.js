@@ -18,13 +18,15 @@ export const GiftCardItem = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-bottom: 10px;
   background-color: ${theme.color.grayLight};
   padding: ${theme.padding.p10};
 `;
-
+export const Description = styled.p`
+  font-weight: 300;
+`;
 export const GiftCardItemCC = styled.div`
-  font-weight: light;
+  font-weight: 300;
   margin-top: 5px;
 `;
 export const GiftCardItemAmount = styled.div`

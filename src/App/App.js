@@ -7,6 +7,7 @@ import {
   StyledCard,
   PageWrapper,
   GiftCardItem,
+  Description,
   GiftCardItemAmount,
   GiftCardItemCC,
   GiftCards,
@@ -108,8 +109,9 @@ class App extends Component {
 
   onCardNumberBlur = e => {
     const { currentCardNumber } = this.state;
-    if (typeof currentCardNumber == 'undefined' || 
-    (currentCardNumber.length >0 && currentCardNumber.length !== 19)
+    if (
+      typeof currentCardNumber == 'undefined' ||
+      (currentCardNumber.length > 0 && currentCardNumber.length !== 19)
     ) {
       this.setState({
         errorMessage: 'Gift Card number must be 19 digits',
@@ -147,6 +149,9 @@ class App extends Component {
             </Checkbox>
             {isGiftCardsVisible && (
               <GiftCards>
+                <Description>
+                  Please enter the 19-digit number and code from your gift card below.
+                </Description>
                 <div>
                   {giftCards &&
                     giftCards.map(item => {
@@ -166,7 +171,6 @@ class App extends Component {
                       );
                     })}
                 </div>
-                <p>Please enter the 19-digit number and code from your gift card below.</p>
                 <NewGiftCardWrapper>
                   <TextfieldCardNumber
                     value={currentCardNumber}
