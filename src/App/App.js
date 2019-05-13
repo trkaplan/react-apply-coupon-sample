@@ -34,7 +34,7 @@ class App extends Component {
 
   updateGiftCard = () => {
     const { currentCardNumber, currentControlCode, giftCards } = this.state;
-    if (giftCards.filter(e => e.cardNumber === currentCardNumber).length > 0) {
+    if (giftCards.filter(e => e.giftCode === currentCardNumber).length > 0) {
       this.setState({
         errorMessage: 'This gift card is already applied.',
         errorTarget: 'CardNumber'
