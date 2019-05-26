@@ -1,4 +1,4 @@
-# Bestseller Front End Task
+# React Apply Coupon Sample
 
 ### Running the application
 
